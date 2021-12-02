@@ -16,5 +16,6 @@ def upload_file():
         os.path.join('./', filename))
     otp = os.popen('python ' + filename).read()
     fileId += 1
+    # os.remove(filename)
     # print(otp)
     return otp, 200
