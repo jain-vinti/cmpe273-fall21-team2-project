@@ -53,14 +53,22 @@ def requestWorker(req, workerUrl):
 @app.errorhandler(404)
 def route_page(err):
     global nodes
+    
     global requestQueue
+    # Append each request to request Queue
     requestQueue.append(request)
     print(nodes, requestQueue)
+
+    #If no nodes are available wait for workers to finish jobs
     while nodes == []:
         continue
+    # if available pop a worker node and request in Request Queue
     currNode = nodes.pop(0)
     currReq = requestQueue.pop(0)
+
+    # Call and request Worker node to send and run the file 
     output = requestWorker(currReq, currNode)
+    # Put the node back into nodes
     nodes.append(currNode)
     return output
 
