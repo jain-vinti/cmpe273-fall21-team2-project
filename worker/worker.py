@@ -14,6 +14,7 @@ def upload_file(fileId):
     FileStorage(request.stream).save(
         os.path.join('./', filename))
     otp = os.popen('python ' + filename).read()
-    os.remove(filename)
+    if os.path.isfile('./' + filename):
+        os.remove(filename)
     # print(otp)
     return otp, 200
